@@ -5,28 +5,25 @@
         .module('miApp')
         .factory('ObrasSocialesService', ObrasSocialesService);
 
-    ObrasSocialesService.$inject = ['$http', '$q'];
+    ObrasSocialesService.$inject = ['$http'];
 
-    function ObrasSocialesService($http, $q) {
+    function ObrasSocialesService($http) {
         var apiBaseUrl = `${window.location.origin}/data/form.json`;
-
-        return {
+        var service = {
             obtenerObrasSociales: obtenerObrasSociales
         };
 
         function obtenerObrasSociales() {
-            var defer = $q.defer();
-
-            $http.get(apiBaseUrl)
+            return $http.get(apiBaseUrl)
                 .then(function (response) {
-                    defer.resolve(response.data.obrasSociales);
+                    return response.data.obrasSociales;
                 })
                 .catch(function (error) {
                     console.error('Error al obtener obras sociales:', error);
-                    defer.reject(error);
+                    throw error;
                 });
-
-            return defer.promise;
         }
+
+        return service;
     }
 })();

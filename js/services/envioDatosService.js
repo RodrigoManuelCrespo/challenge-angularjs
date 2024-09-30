@@ -3,23 +3,19 @@
 
     angular
         .module('miApp')
-        .service('EnvioDatosService', EnvioDatosService);
+        .factory('EnvioDatosService', EnvioDatosService);
 
-    EnvioDatosService.$inject = ['$q'];
+    EnvioDatosService.$inject = ['$http'];
 
-    function EnvioDatosService($q) {
-        var service = {
+    function EnvioDatosService($http) {
+        return {
             enviarDatos: enviarDatos
         };
 
-        return service;
-
         function enviarDatos(usuario) {
-            var defer = $q.defer();
-
-            defer.resolve({ mensaje: 'Consulta enviada exitosamente' });
-
-            return defer.promise;
+            return new Promise((resolve) => {
+                resolve({ mensaje: 'Consulta enviada exitosamente' });
+            });
         }
     }
 

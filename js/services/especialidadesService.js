@@ -5,28 +5,25 @@
         .module('miApp')
         .factory('EspecialidadesService', EspecialidadesService);
 
-    EspecialidadesService.$inject = ['$http', '$q'];
+    EspecialidadesService.$inject = ['$http'];
 
-    function EspecialidadesService($http, $q) {
+    function EspecialidadesService($http) {
         var apiBaseUrl = `${window.location.origin}/data/form.json`;
-
-        return {
+        var service = {
             obtenerEspecialidades: obtenerEspecialidades
         };
 
         function obtenerEspecialidades() {
-            var defer = $q.defer();
-
-            $http.get(apiBaseUrl)
+            return $http.get(apiBaseUrl)
                 .then(function (response) {
-                    defer.resolve(response.data.especialidades);
+                    return response.data.especialidades;
                 })
                 .catch(function (error) {
                     console.error('Error al obtener especialidades:', error);
-                    defer.reject(error);
+                    throw error;
                 });
-
-            return defer.promise;
         }
+
+        return service;
     }
 })();

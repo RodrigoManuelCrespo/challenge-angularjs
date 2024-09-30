@@ -5,31 +5,26 @@
         .module('miApp')
         .factory('ProfesionalesService', ProfesionalesService);
 
-    ProfesionalesService.$inject = ['$http', '$q'];
+    ProfesionalesService.$inject = ['$http'];
 
-    function ProfesionalesService($http, $q) {
+    function ProfesionalesService($http) {
         var apiBaseUrl = `${window.location.origin}/data/form.json`;
-
-        return {
+        var service = {
             obtenerProfesionales: obtenerProfesionales
         };
 
         function obtenerProfesionales(especialidadId) {
-            var defer = $q.defer();
-
-            $http.get(apiBaseUrl)
+            return $http.get(apiBaseUrl)
                 .then(function (response) {
                     console.log(response);
-
-                    var profesionales = response.data.profesionales[especialidadId] || [];
-                    defer.resolve(profesionales);
+                    return response.data.profesionales[especialidadId] || [];
                 })
                 .catch(function (error) {
                     console.error('Error al obtener profesionales:', error);
-                    defer.reject(error);
+                    throw error;
                 });
-
-            return defer.promise;
         }
+
+        return service;
     }
 })();
