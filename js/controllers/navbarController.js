@@ -5,9 +5,17 @@
         .module('miApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$scope'];
+    NavbarController.$inject = ['$state'];
 
-    function NavbarController($scope) {
+    function NavbarController($state) {
         var vm = this;
+
+        vm.pressButton = function () {
+            $state.go('formulario');
+        };
+
+        vm.isFormularioPage = function () {
+            return $state.current.name === 'formulario';
+        };
     }
 })();

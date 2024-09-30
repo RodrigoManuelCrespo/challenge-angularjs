@@ -4,9 +4,131 @@
 
 body{
     background-color: #FFF;
+    font-family: 'Nunito', sans-serif;
 }
 
 .inicio{
     margin-top:80px;
     height: calc(100vh -  140px);
 }
+
+.form{
+    margin-top: 75px;
+    min-height: calc(100vh -  140px);
+    background-color: whitesmoke;
+
+    &_header {
+        background-image: url("img/doctor.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &_title {
+            color: white;
+            font-size: 40px;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        &_select {
+            padding: 0;
+            margin-bottom: 10px;
+            padding-right: 10px;
+            
+            @media (max-width: 600px) {
+                padding-right: 0;
+            }
+        }
+    }
+
+    &_container {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    &_title {
+        margin-bottom: 20px;
+    }
+
+    &_card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        margin-bottom: 20px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        &_info {
+            display: flex;
+            gap: 20px;
+        }
+
+        &_select {
+            margin-bottom: 20px;
+        }
+
+        &_img {
+            border-radius: 10px;
+        }
+
+        &_name {
+            font-size: 20px;
+            font-weight: 600;
+            border-bottom: 1px solid lightgray;
+            padding-bottom: 5px;
+        }
+
+        &_button {
+            width: 100%;
+        }
+
+        &_full {
+            width: "auto";
+            
+            @media (max-width: 600px) {
+                width: 100%;
+            }
+        }
+    }
+
+    &_submit {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+}
+
+.input {
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+}
+
+.button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    background-color: #00a1e6;
+    border-color: #00a1e6;
+    font-weight: 600;
+
+    &_success {
+        background-color: #34CC81;
+        border-color: #34CC81;  
+    }
+
+    @media (max-width: 600px) {
+        width: 100%;
+    }
+}
+ 

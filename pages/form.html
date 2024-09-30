@@ -1,0 +1,154 @@
+<ng-include src="'../pages/partials/navbar.html'"></ng-include>
+<div class="form">
+  <div class="form_header">
+    <div class="container">
+      <h2 class="form_header_title">Encontrá tu turno</h2>
+      <div class="grid">
+        <div class="col-md-5 form_header_select">
+          <select
+            id="especialidad"
+            class="form-control input"
+            ng-model="formCtrl.selectedEspecialidad"
+            ng-options="especialidad.nombre for especialidad in formCtrl.especialidades"
+          >
+            <option value="">Seleccione una especialidad</option>
+          </select>
+        </div>
+        <div class="col-md-5 form_header_select">
+          <select
+            id="obrasocial"
+            class="form-control input"
+            ng-model="formCtrl.selectedObraSocial"
+            ng-options="obrasSocial.nombre for obrasSocial in formCtrl.obrasSociales"
+          >
+            <option value="">Obra Social o Particular</option>
+          </select>
+        </div>
+        <button
+          ng-click="formCtrl.cargarProfesionales()"
+          class="col-md-2 btn btn-primary button"
+        >
+          Buscar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Lista de profesionales y horarios -->
+    <div class="form_container" ng-if="formCtrl.profesionales.length > 0">
+      <h3 class="form_title">Seleccione un profesional y un horario:</h3>
+      <div class="form_card" ng-repeat="profesional in formCtrl.profesionales">
+        <div class="form_card_info">
+          <img
+            width="120"
+            height="120"
+            src="{{profesional.img}}"
+            alt="doctor"
+            class="form_card_img"
+          />
+          <div>
+            <p class="form_card_name">{{profesional.nombre}}</p>
+            <p>Próximo turno disponible:</p>
+            <p>{{profesional.turnosDisponibles[0].fechaHora}}</p>
+          </div>
+        </div>
+        <div class="form_card_full">
+          <select
+            class="form-control form_card_select"
+            ng-model="selectedTurno"
+            ng-options="turno.fechaHora for turno in profesional.turnosDisponibles"
+          >
+            <option value="">Seleccione un turno</option>
+          </select>
+
+          <button
+            class="btn btn-primary button form_card_button"
+            ng-disabled="!selectedTurno"
+            ng-click="formCtrl.seleccionarConsulta(profesional, selectedTurno)"
+          >
+            Sacar Turno
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Información del usuario -->
+    <div class="form_container" ng-if="formCtrl.formularioActivo">
+      <h3 class="form_title">Complete sus datos:</h3>
+      <form name="consultaForm" novalidate>
+        <div class="form-group">
+          <label for="nombre">Nombre:</label>
+          <input
+            type="text"
+            id="nombre"
+            class="form-control input"
+            ng-model="formCtrl.usuario.nombre"
+            placeholder="Nombre"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="apellido">Apellido:</label>
+          <input
+            type="text"
+            id="apellido"
+            class="form-control input"
+            ng-model="formCtrl.usuario.apellido"
+            placeholder="Apellido"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="direccion">Dirección:</label>
+          <input
+            type="text"
+            id="direccion"
+            class="form-control input"
+            ng-model="formCtrl.usuario.direccion"
+            placeholder="Dirección"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="telefono">Teléfono:</label>
+          <input
+            type="text"
+            id="telefono"
+            class="form-control input"
+            ng-model="formCtrl.usuario.telefono"
+            placeholder="Teléfono"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="comentario">Comentario (opcional):</label>
+          <textarea
+            id="comentario"
+            class="form-control input"
+            ng-model="formCtrl.usuario.comentario"
+            placeholder="Comentario"
+          ></textarea>
+        </div>
+        <div class="form_submit">
+          <h4>
+            Turno:
+            <b
+              >{{formCtrl.selectedEspecialidad.nombre}} -
+              {{formCtrl.formulario.profesional.nombre}}
+              {{formCtrl.formulario.turno.fechaHora}} hs.</b
+            >
+          </h4>
+          <button
+            class="btn btn-success button button_success"
+            ng-click="formCtrl.enviarFormulario()"
+            ng-disabled="consultaForm.$invalid"
+          >
+            Reservar Turno
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<ng-include src="'../pages/partials/footer.html'"></ng-include>
