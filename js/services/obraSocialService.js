@@ -3,34 +3,30 @@
 
     angular
         .module('miApp')
-        .service('ObrasSocialesService', ObrasSocialesService);
+        .factory('ObrasSocialesService', ObrasSocialesService);
 
-    ObrasSocialesService.$inject = ['$q']; // Inyectamos el servicio $q para manejar promesas
+    ObrasSocialesService.$inject = ['$http', '$q'];
 
-    function ObrasSocialesService($q) {
-        this.obtenerObrasSociales = function () {
-            var deferred = $q.defer();
+    function ObrasSocialesService($http, $q) {
+        var apiBaseUrl = `${window.location.origin}/data/form.json`;
 
-            // Simular una respuesta asincrónica usando $timeout o puedes usar AJAX para obtener datos reales
-            var obrasSociales = [
-                { nombre: 'Particular' },
-                { nombre: 'IAPOS (Instituto Autárquico Provincial de Obra Social)' },
-                { nombre: 'OSDE (Organización de Servicios Directos Empresarios)' },
-                { nombre: 'Swiss Medical' },
-                { nombre: 'Galeno' },
-                { nombre: 'Sancor Salud' },
-                { nombre: 'AMR Salud (Asociación Médica de Rosario)' },
-                { nombre: 'Medifé' },
-                { nombre: 'OSECAC (Obra Social de los Empleados de Comercio y Actividades Civiles)' },
-                { nombre: 'Unión Personal' },
-                { nombre: 'OSDOP (Obra Social para el Personal Docente Privado)' }
-            ];
-
-            // Resolver la promesa con los datos
-            deferred.resolve(obrasSociales);
-
-            // Retornar la promesa
-            return deferred.promise;
+        return {
+            obtenerObrasSociales: obtenerObrasSociales
         };
+
+        function obtenerObrasSociales() {
+            var defer = $q.defer();
+
+            $http.get(apiBaseUrl)
+                .then(function (response) {
+                    defer.resolve(response.data.obrasSociales);
+                })
+                .catch(function (error) {
+                    console.error('Error al obtener obras sociales:', error);
+                    defer.reject(error);
+                });
+
+            return defer.promise;
+        }
     }
 })();

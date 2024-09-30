@@ -14,12 +14,9 @@
 
         return service;
 
-        // Simulamos el envío de datos a un servidor
         function enviarDatos(usuario) {
             var defer = $q.defer();
 
-            // Simulamos que los datos fueron enviados correctamente
-            console.log('Datos enviados:', usuario);
             defer.resolve({ mensaje: 'Consulta enviada exitosamente' });
 
             return defer.promise;

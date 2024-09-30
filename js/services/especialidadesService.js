@@ -3,29 +3,30 @@
 
     angular
         .module('miApp')
-        .service('EspecialidadesService', EspecialidadesService);
+        .factory('EspecialidadesService', EspecialidadesService);
 
-    EspecialidadesService.$inject = ['$q'];
+    EspecialidadesService.$inject = ['$http', '$q'];
 
-    function EspecialidadesService($q) {
-        var service = {
+    function EspecialidadesService($http, $q) {
+        var apiBaseUrl = `${window.location.origin}/data/form.json`;
+
+        return {
             obtenerEspecialidades: obtenerEspecialidades
         };
 
-        return service;
-
-        // Simulamos una llamada a una API que obtiene las especialidades
         function obtenerEspecialidades() {
             var defer = $q.defer();
-            var especialidades = [
-                { id: 1, nombre: 'Cardiología' },
-                { id: 2, nombre: 'Dermatología' },
-                { id: 3, nombre: 'Pediatría' }
-            ];
 
-            defer.resolve(especialidades);
+            $http.get(apiBaseUrl)
+                .then(function (response) {
+                    defer.resolve(response.data.especialidades);
+                })
+                .catch(function (error) {
+                    console.error('Error al obtener especialidades:', error);
+                    defer.reject(error);
+                });
+
             return defer.promise;
         }
     }
-
 })();

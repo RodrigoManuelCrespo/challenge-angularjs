@@ -32,7 +32,7 @@
       .state('formulario', {
         url: '/formulario',
         templateUrl: 'pages/form.html',
-        controller: 'FormController as formCtrl'  // Ajustado para usar FormController
+        controller: 'FormController as formCtrl'
       });
 
 

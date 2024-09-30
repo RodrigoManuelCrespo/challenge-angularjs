@@ -10,7 +10,6 @@
     function FormController(EspecialidadesService, ProfesionalesService, EnvioDatosService, ObrasSocialesService) {
         var vm = this;
 
-        // Variables del controlador
         vm.especialidades = [];
         vm.profesionales = [];
         vm.obrasSociales = [];
@@ -18,13 +17,11 @@
         vm.selectedObraSocial = null;
         vm.selectedTurno = null;
         vm.formularioActivo = false;
-        vm.formulario = {};  // Contendrá los datos del usuario
+        vm.formulario = {};
 
-        // Cargar especialidades y obras sociales al iniciar
         cargarEspecialidades();
         cargarObraSocial();
 
-        // Función para cargar especialidades
         function cargarEspecialidades() {
             EspecialidadesService.obtenerEspecialidades()
                 .then(function (response) {
@@ -35,7 +32,6 @@
                 });
         }
 
-        // Función para cargar obras sociales
         function cargarObraSocial() {
             ObrasSocialesService.obtenerObrasSociales()
                 .then(function (response) {
@@ -46,24 +42,20 @@
                 });
         }
 
-        // Cargar profesionales según la especialidad seleccionada
         vm.cargarProfesionales = function () {
             if (vm.selectedEspecialidad && vm.selectedObraSocial) {
                 ProfesionalesService.obtenerProfesionales(vm.selectedEspecialidad.id)
                     .then(function (response) {
-                        console.log(response);
-
                         vm.profesionales = response;
                     })
                     .catch(function (error) {
                         console.log('Error al cargar profesionales:', error);
                     });
             } else {
-                window.alert("Completar todos los campos");
+                window.alert("Completar los campos antes de continuar.");
             }
         };
 
-        // Seleccionar un profesional, una fecha y un horario para habilitar el formulario
         vm.seleccionarConsulta = function (profesional, selectedTurno) {
             if (selectedTurno && profesional) {
                 vm.formulario = {
@@ -76,7 +68,6 @@
             }
         };
 
-        // Enviar formulario con los datos del usuario
         vm.enviarFormulario = function () {
             var datosEnvio = {
                 usuario: vm.usuario,

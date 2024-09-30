@@ -1,6 +1,7 @@
 @import '../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 @import './components/header';
 @import './components/footer';
+@import './variables';
 
 body{
     background-color: #FFF;
@@ -14,7 +15,7 @@ body{
 
 .form{
     margin-top: 75px;
-    min-height: calc(100vh -  140px);
+    min-height: calc(100vh -  130px);
     background-color: whitesmoke;
 
     &_header {
@@ -28,7 +29,7 @@ body{
         align-items: center;
 
         &_title {
-            color: white;
+            color: #FFF;
             font-size: 40px;
             margin-top: 20px;
             margin-bottom: 40px;
@@ -56,7 +57,7 @@ body{
     }
 
     &_card {
-        background-color: white;
+        background-color: #FFF;
         padding: 20px;
         border-radius: 10px;
         display: flex;
@@ -118,13 +119,13 @@ body{
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 8px;
-    background-color: #00a1e6;
-    border-color: #00a1e6;
+    background-color: $button_blue;
+    border-color: $button_blue;
     font-weight: 600;
 
     &_success {
-        background-color: #34CC81;
-        border-color: #34CC81;  
+        background-color: $button_success;
+        border-color: $button_success;  
     }
 
     @media (max-width: 600px) {
